@@ -5,11 +5,16 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Config from environment
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-SONAR_TOKEN = os.getenv("SONAR_TOKEN")
-SONAR_HOST = os.getenv("SONAR_HOST")
-SONAR_PROJECT_KEY = os.getenv("SONAR_PROJECT_KEY")
-REPO = os.getenv("GITHUB_REPOSITORY")  # Provided by GitHub Actions
+# GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+# SONAR_TOKEN = os.getenv("SONAR_TOKEN")
+# SONAR_HOST = os.getenv("SONAR_HOST")
+# SONAR_PROJECT_KEY = os.getenv("SONAR_PROJECT_KEY")
+# REPO = os.getenv("GITHUB_REPOSITORY")  # Provided by GitHub Actions
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
+SONAR_TOKEN = os.environ.get("SONAR_TOKEN")
+SONAR_HOST = os.environ.get("SONAR_HOST")
+SONAR_PROJECT_KEY = os.environ.get("SONAR_PROJECT_KEY")
+REPO = os.environ.get("GITHUB_REPOSITORY")  # Provided by GitHub Actions
 
 # Headers
 github_headers = {
