@@ -9,8 +9,6 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 SONAR_TOKEN = "your_sonar_token_here"  # Line 11 - secrets issue
-# This is some old configuration
-# that we don't use anymore  # Line 13 - THIS IS THE ISSUE TO FIX
 import json
 
 def get_sonar_issues():
