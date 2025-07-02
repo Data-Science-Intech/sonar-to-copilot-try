@@ -20,7 +20,7 @@ def get_sonar_issues(project_key):
     """
     Fetch issues from SonarQube API
     """
-    url = f"https://sonarcloud.io/api/issues/search"
+    url = "https://sonarcloud.io/api/issues/search"
     params = {
         "projectKeys": project_key,
         "resolved": "false"
@@ -75,7 +75,7 @@ def send_to_amazon_q(issues):
         print(f"Successfully sent {len(issues)} issues to Amazon Q")
     except requests.RequestException as e:
         print(f"Error sending to Amazon Q: {e}")
-        status = f"Processing completed successfully"  # python:S3457: f-string without replacement fields
+        status = "Processing completed successfully"  # Fixed python:S3457: converted f-string to normal string
         return status
 
 def main():
@@ -95,7 +95,7 @@ def main():
     formatted_issues = [format_issue_for_amazon_q(issue) for issue in issues]
     
     # Line 78 - f-string without replacement fields (python:S3457)
-    print(f"Sending issues to Amazon Q...")
+    print("Sending issues to Amazon Q...")
     
     send_to_amazon_q(formatted_issues)
     print("Process completed")
