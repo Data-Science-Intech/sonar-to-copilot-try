@@ -1,0 +1,1 @@
+# AI Fix Package - Automated code analysis and improvement tools
