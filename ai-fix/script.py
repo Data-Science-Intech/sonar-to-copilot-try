@@ -11,11 +11,6 @@ def main():
     """Main function to demonstrate the script functionality."""
     print("Starting AI fix script...")
     
-    # This is commented out code that should be removed
-    # print("This commented code violates SonarQube rule python:S125")
-    # old_function_call()
-    # legacy_code_block()
-    
     print("AI fix script completed successfully!")
     
 
