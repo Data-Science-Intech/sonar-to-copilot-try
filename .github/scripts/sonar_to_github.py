@@ -126,16 +126,26 @@ issues = [
 # issues = response.json().get("issues", [])
 # print(f"Found {len(issues)} issues.")
 # Step 2: Create GitHub issues for each
+# for issue in issues:
+#     title = f"[SonarQube] {issue['rule']} in {issue['component']}"
+#     body = f"""## Issue: {issue['message']}
+#     **Component:** `{issue['component']}`
+#     **Severity:** `{issue['severity']}`
+#     **Rule:** `{issue['rule']}`
+#     **Line:** {issue.get('line', 'N/A')}
+#     **Link:** {SONAR_HOST}/project/issues?id={SONAR_PROJECT_KEY}&issues={issue['key']}
+#     > Auto-created from SonarQube analysis.
+#     """
+
 for issue in issues:
-    title = f"[SonarQube] {issue['rule']} in {issue['component']}"
+    title = f"[SonarQube] {issue['rule']} in {issue['file']}"
     body = f"""## Issue: {issue['message']}
-    **Component:** `{issue['component']}`
-    **Severity:** `{issue['severity']}`
-    **Rule:** `{issue['rule']}`
-    **Line:** {issue.get('line', 'N/A')}
-    **Link:** {SONAR_HOST}/project/issues?id={SONAR_PROJECT_KEY}&issues={issue['key']}
-    > Auto-created from SonarQube analysis.
-    """
+               **File:** `{issue['file']}`
+               **Line:** `{issue.get('line', 'N/A')}`
+               **Rule:** `{issue['rule']}`
+
+               > Auto-created from static analysis.
+            """
 
     github_issue_url = f"https://api.github.com/repos/{REPO}/issues"
     res = requests.post(github_issue_url, headers=github_headers, json={
