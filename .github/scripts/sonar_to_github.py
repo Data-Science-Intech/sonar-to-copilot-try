@@ -13,10 +13,10 @@ REPO = os.environ.get("GITHUB_REPOSITORY")
 # print(f"[ENV] Project: {SONAR_PROJECT_KEY}, Repo: {REPO}")
 
 # # Headers
-# github_headers = {
-#     "Authorization": f"Bearer {GITHUB_TOKEN}",
-#     "Accept": "application/vnd.github.v3+json"
-# }
+github_headers = {
+    "Authorization": f"Bearer {GITHUB_TOKEN}",
+    "Accept": "application/vnd.github.v3+json"
+}
 # auth = HTTPBasicAuth(SONAR_TOKEN, "")
 
 # # Correct endpoint
