@@ -154,6 +154,7 @@ for issue in issues:
         "labels": ["sonarqube"]
     })
 
+
     if res.status_code == 201:
         print(f"[✅] GitHub issue created: {title}")
     elif res.status_code == 422 and "already_exists" in res.text:
