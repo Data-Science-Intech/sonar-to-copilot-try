@@ -10,7 +10,6 @@ import sys
 
 
 def main():
-    # print("This is commented out code that should be removed")
     """Main function for the AI fix script."""
     print("Starting AI fix script...")
     
