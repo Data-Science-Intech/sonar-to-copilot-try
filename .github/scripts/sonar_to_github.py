@@ -74,15 +74,13 @@ print(f"[📦] Found {len(issues)} unresolved issues.")
 for issue in issues:
     title = f"[SonarQube] {issue['rule']} in {issue['component']}"
     body = f"""## Issue: {issue['message']}
-
-**Component:** `{issue['component']}`
-**Severity:** `{issue['severity']}`
-**Rule:** `{issue['rule']}`
-**Line:** {issue.get('line', 'N/A')}
-**Link:** {SONAR_HOST}/project/issues?id={SONAR_PROJECT_KEY}&issues={issue['key']}
-
-> Auto-created from SonarQube analysis.
-"""
+    **Component:** `{issue['component']}`
+    **Severity:** `{issue['severity']}`
+    **Rule:** `{issue['rule']}`
+    **Line:** {issue.get('line', 'N/A')}
+    **Link:** {SONAR_HOST}/project/issues?id={SONAR_PROJECT_KEY}&issues={issue['key']}
+    > Auto-created from SonarQube analysis.
+    """
 
     github_issue_url = f"https://api.github.com/repos/{REPO}/issues"
     res = requests.post(github_issue_url, headers=github_headers, json={
