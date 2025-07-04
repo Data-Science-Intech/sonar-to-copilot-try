@@ -168,7 +168,7 @@ if __name__ == "__main__":
             raise ValueError("❌ SONAR_TOKEN is not set. Please export it before running.")
     ensure_target_classes_exists()
     create_sonar_properties_file()
-#     run_sonar_scanner_docker()
+    run_sonar_scanner_docker()
     issues = fetch_issues(SONAR_PROJECT_KEY, SONAR_HOST_URL)
     # if issues:
     #     pyperclip.copy(json.dumps(issues, indent=2))
