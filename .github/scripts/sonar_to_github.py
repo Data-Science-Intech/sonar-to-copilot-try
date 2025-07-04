@@ -33,6 +33,7 @@ def ensure_target_classes_exists():
 
 def create_sonar_properties_file():
     content = f"""
+sonar.organization={SONAR_ORGANIZATION}
 sonar.projectKey={SONAR_PROJECT_KEY}
 sonar.sources=.
 sonar.host.url={SONAR_HOST}
