@@ -3,8 +3,7 @@ import subprocess
 import requests
 import json
 import time
-import pyautogui
-import pyperclip
+
 from requests.auth import HTTPBasicAuth
 
 
