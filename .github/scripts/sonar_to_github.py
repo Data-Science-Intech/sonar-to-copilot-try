@@ -126,7 +126,7 @@ response = requests.get(sonar_api_url, params=params, auth=auth)
 response.raise_for_status()
 issues = response.json().get("issues", [])
 print(f"Found {len(issues)} issues.")
-Step 2: Create GitHub issues for each
+# Step 2: Create GitHub issues for each
 for issue in issues:
     title = f"[SonarQube] {issue['rule']} in {issue['component']}"
     body = f"""## Issue: {issue['message']}
