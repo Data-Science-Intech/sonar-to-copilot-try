@@ -169,7 +169,7 @@ if __name__ == "__main__":
     ensure_target_classes_exists()
     create_sonar_properties_file()
     run_sonar_scanner_docker()
-    issues = fetch_issues(SONAR_PROJECT_KEY, SONAR_HOST_URL)
+    issues = fetch_issues(SONAR_PROJECT_KEY, SONAR_HOST)
     # if issues:
     #     pyperclip.copy(json.dumps(issues, indent=2))
     #     paste_to_amazon_q()
