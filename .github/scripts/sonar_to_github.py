@@ -22,6 +22,10 @@ SONAR_ORGANIZATION = os.environ.get("SONAR_ORGANIZATION")
 REPO = os.environ.get("GITHUB_REPOSITORY") 
 WORKSPACE = os.environ.get("GITHUB_WORKSPACE")  # Provided by GitHub Actions
 
+github_headers = {
+    "Authorization": f"Bearer {GITHUB_TOKEN}",
+    "Accept": "application/vnd.github.v3+json"
+}
 
 def ensure_target_classes_exists():
     path = os.path.join("target", "classes")
@@ -88,7 +92,7 @@ def fetch_issues(project_key, sonar_host_url):
         # Make API request to fetch issues
         response = requests.get(
             f"{sonar_host_url}/api/issues/search",
-            params={"componentKeys": project_key, "resolved": "false"},
+            params={"componentKeys": project_key, "resolved": "false","severities": "CRITICAL"},
             auth=auth
         )
 
