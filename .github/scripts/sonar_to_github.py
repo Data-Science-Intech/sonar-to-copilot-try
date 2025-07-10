@@ -92,7 +92,7 @@ def fetch_issues(project_key, sonar_host_url):
         # Make API request to fetch issues
         response = requests.get(
             f"{sonar_host_url}/api/issues/search",
-            params={"componentKeys": project_key, "resolved": "false","severities": "CRITICAL"},
+            params={"componentKeys": project_key, "resolved": "false","severities": "CRITICAL","branch": "master"},
             auth=auth
         )
 
