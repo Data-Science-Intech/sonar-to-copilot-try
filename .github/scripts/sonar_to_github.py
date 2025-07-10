@@ -65,60 +65,118 @@ def run_sonar_scanner_docker():
     subprocess.run(cmd, check=True)
     print("[✅] Docker sonar-scanner completed.")
 
+# def fetch_issues(project_key, sonar_host_url):
+#     """
+#     Fetch all unresolved issues from SonarQube for the given project
+
+#     Args:
+#         project_key (str): SonarQube project key
+#         sonar_host (str): SonarQube host URL
+
+#     Returns:
+#         list: List of issue dictionaries containing file, line, message, and rule
+#     """
+#     # Get SonarQube token from environment
+#     # sonar_token = os.getenv("SONAR_TOKEN")
+#     # sonar_host = os.getenv("SONAR_HOST")
+#     # sonar_token = os.getenv("SONAR_TOKEN")
+#     if not SONAR_TOKEN:
+#         raise ValueError("SONAR_TOKEN environment variable not set")
+
+#     print(f"🔍 Fetching issues for project: {project_key}")
+
+#     # Setup authentication
+#     auth = HTTPBasicAuth(SONAR_TOKEN, "")
+
+#     try:
+#         # Make API request to fetch issues
+#         response = requests.get(
+#             f"{sonar_host_url}/api/issues/search",
+#             params={"componentKeys": project_key, "resolved": "false","severities": "CRITICAL","branch": "master"},
+#             auth=auth
+#         )
+
+#         # Check response status
+#         response.raise_for_status()
+
+#         # Parse response
+#         data = response.json()
+#         issues = data.get("issues", [])
+#         parsed_issues = []
+#         for issue in issues:
+#             parsed_issues.append({
+#                 "file": issue["component"].split(":")[-1],
+#                 "line": issue.get("line", 1),
+#                 "message": issue["message"],
+#                 "rule": issue["rule"]
+#             })
+
+#         with open("parsed_sonar_issues.json", "w") as f:
+#             json.dump(parsed_issues, f, indent=2)
+
+#         print(f"✅ Successfully fetched {len(parsed_issues)} issues")
+#         return parsed_issues
+#     except requests.exceptions.RequestException as e:
+#         print(f"❌ Error fetching issues: {str(e)}")
+#         raise
+
 def fetch_issues(project_key, sonar_host_url):
     """
-    Fetch all unresolved issues from SonarQube for the given project
+    Fetch all unresolved issues from SonarQube for the given project.
 
     Args:
         project_key (str): SonarQube project key
-        sonar_host (str): SonarQube host URL
+        sonar_host_url (str): SonarQube host URL
 
     Returns:
         list: List of issue dictionaries containing file, line, message, and rule
     """
-    # Get SonarQube token from environment
-    # sonar_token = os.getenv("SONAR_TOKEN")
-    # sonar_host = os.getenv("SONAR_HOST")
-    # sonar_token = os.getenv("SONAR_TOKEN")
     if not SONAR_TOKEN:
         raise ValueError("SONAR_TOKEN environment variable not set")
 
-    print(f"🔍 Fetching issues for project: {project_key}")
+    print(f"🔍 Fetching issues for project: {project_key} on branch: master")
 
-    # Setup authentication
     auth = HTTPBasicAuth(SONAR_TOKEN, "")
 
     try:
-        # Make API request to fetch issues
         response = requests.get(
             f"{sonar_host_url}/api/issues/search",
-            params={"componentKeys": project_key, "resolved": "false","severities": "CRITICAL","branch": "master"},
+            params={
+                "componentKeys": project_key,
+                "resolved": "false",
+                "severities": "CRITICAL",
+                "branch": "master"
+            },
             auth=auth
         )
-
-        # Check response status
         response.raise_for_status()
 
-        # Parse response
         data = response.json()
         issues = data.get("issues", [])
-        parsed_issues = []
-        for issue in issues:
-            parsed_issues.append({
+        parsed_issues = [
+            {
                 "file": issue["component"].split(":")[-1],
                 "line": issue.get("line", 1),
                 "message": issue["message"],
                 "rule": issue["rule"]
-            })
+            }
+            for issue in issues
+        ]
 
         with open("parsed_sonar_issues.json", "w") as f:
             json.dump(parsed_issues, f, indent=2)
 
-        print(f"✅ Successfully fetched {len(parsed_issues)} issues")
+        if parsed_issues:
+            print(f"✅ Successfully fetched {len(parsed_issues)} issues")
+        else:
+            print("ℹ️ No unresolved issues found.")
+
         return parsed_issues
+
     except requests.exceptions.RequestException as e:
         print(f"❌ Error fetching issues: {str(e)}")
         raise
+
 # def paste_to_amazon_q():
 #     print("[🤖] Activating Amazon Q panel in IntelliJ...")
 
